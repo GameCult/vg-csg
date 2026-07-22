@@ -532,6 +532,97 @@ mod tests {
         }
     }
 
+    fn v1_domain_witness() -> CultGeometryDomainDocument {
+        CultGeometryDomainDocument(
+            "fixture-domain".to_owned(),
+            "fixture/root".to_owned(),
+            "vg-csg-a3197f4".to_owned(),
+            CultGeometryDomainNode(
+                "root".to_owned(),
+                "Root".to_owned(),
+                vec![1.0, -2.5, 0.0],
+                vec![0.0, 0.0, 0.0, 1.0],
+                42,
+                Vec::new(),
+                Vec::new(),
+            ),
+            "2026-05-29T00:00:00Z".to_owned(),
+        )
+    }
+
+    fn v1_chunk_witness() -> CultGeometryChunkArtifact {
+        CultGeometryChunkArtifact(
+            "fixture/chunk".to_owned(),
+            "geometry:cut:fixture".to_owned(),
+            "cut-fixture".to_owned(),
+            vec![-1.0, -2.0, -3.0],
+            vec![1.0, 2.0, 3.0],
+            vec!["fixture/root".to_owned()],
+            vec!["fixture/root/claim".to_owned()],
+            CultGeometryTriangleMesh(
+                vec![0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0],
+                vec![0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0],
+                vec![0.0, 0.0, 1.0, 0.0, 0.0, 1.0],
+                vec![0, 1, 2],
+                vec![7],
+            ),
+            None,
+            1,
+            0,
+            0,
+            0x0123_4567_89ab_cdef,
+            true,
+        )
+    }
+
+    #[test]
+    fn v1_domain_messagepack_and_record_key_are_exact_witnesses() {
+        let domain = v1_domain_witness();
+        assert_eq!(
+            domain.record_key(),
+            "geometry:domain:0e38aabb0f3547fb5cdac61351781187202bc493e7c090565996a4f3cca65faa"
+        );
+        assert_eq!(
+            domain.to_msgpack().unwrap(),
+            [
+                149, 174, 102, 105, 120, 116, 117, 114, 101, 45, 100, 111, 109, 97, 105, 110, 172,
+                102, 105, 120, 116, 117, 114, 101, 47, 114, 111, 111, 116, 174, 118, 103, 45, 99,
+                115, 103, 45, 97, 51, 49, 57, 55, 102, 52, 151, 164, 114, 111, 111, 116, 164, 82,
+                111, 111, 116, 147, 202, 63, 128, 0, 0, 202, 192, 32, 0, 0, 202, 0, 0, 0, 0, 148,
+                202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 63, 128, 0, 0, 42, 144,
+                144, 180, 50, 48, 50, 54, 45, 48, 53, 45, 50, 57, 84, 48, 48, 58, 48, 48, 58, 48,
+                48, 90,
+            ]
+        );
+    }
+
+    #[test]
+    fn v1_chunk_messagepack_and_record_key_are_exact_witnesses() {
+        let chunk = v1_chunk_witness();
+        assert_eq!(
+            chunk.record_key(),
+            "geometry:chunk:ca2874d3638800179c906087ec817ea715c43b70b99ead04edccce2a1b3d6ebb"
+        );
+        assert_eq!(
+            chunk.to_msgpack().unwrap(),
+            [
+                158, 173, 102, 105, 120, 116, 117, 114, 101, 47, 99, 104, 117, 110, 107, 180, 103,
+                101, 111, 109, 101, 116, 114, 121, 58, 99, 117, 116, 58, 102, 105, 120, 116, 117,
+                114, 101, 171, 99, 117, 116, 45, 102, 105, 120, 116, 117, 114, 101, 147, 202, 191,
+                128, 0, 0, 202, 192, 0, 0, 0, 202, 192, 64, 0, 0, 147, 202, 63, 128, 0, 0, 202, 64,
+                0, 0, 0, 202, 64, 64, 0, 0, 145, 172, 102, 105, 120, 116, 117, 114, 101, 47, 114,
+                111, 111, 116, 145, 178, 102, 105, 120, 116, 117, 114, 101, 47, 114, 111, 111, 116,
+                47, 99, 108, 97, 105, 109, 149, 153, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0,
+                0, 0, 202, 63, 128, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202,
+                63, 128, 0, 0, 202, 0, 0, 0, 0, 153, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 63,
+                128, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 63, 128, 0, 0, 202, 0, 0, 0, 0,
+                202, 0, 0, 0, 0, 202, 63, 128, 0, 0, 150, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202,
+                63, 128, 0, 0, 202, 0, 0, 0, 0, 202, 0, 0, 0, 0, 202, 63, 128, 0, 0, 147, 0, 1, 2,
+                145, 7, 192, 1, 0, 0, 207, 1, 35, 69, 103, 137, 171, 205, 239, 195,
+            ]
+        );
+    }
+
     #[test]
     fn domain_document_emits_msgpack_payload_and_stable_key() {
         let spec = ragnarok_column_spec();
@@ -540,6 +631,10 @@ mod tests {
         let payload = document.to_msgpack().unwrap();
         let decoded = CultGeometryDomainDocument::from_msgpack(&payload).unwrap();
         assert_eq!(document.record_key(), decoded.record_key());
+        assert_eq!(
+            document.record_key(),
+            "geometry:domain:02c9b5810977406b0c206f3a3494327a423abb9448192be1b9a1863cd0f2ed95"
+        );
         assert!(document.record_key().starts_with("geometry:domain:"));
         assert!(!payload.is_empty());
     }
@@ -560,6 +655,18 @@ mod tests {
         let payload = artifact.to_msgpack().unwrap();
         let decoded = CultGeometryChunkArtifact::from_msgpack(&payload).unwrap();
         assert_eq!(artifact.record_key(), decoded.record_key());
+        assert_eq!(
+            request.record_key(),
+            "geometry:request:87caae7d0d33ada85ff1b05371cd64d48b235628771f15bcc10aed74548eb692"
+        );
+        assert_eq!(
+            cut.record_key(),
+            "geometry:cut:6887572d3deb49861196cc407dbfdae64ccd2ad39445e6e2892694b3933f3a92"
+        );
+        assert_eq!(
+            artifact.record_key(),
+            "geometry:chunk:e14d7af94449490fbd747f9a24dad40f76472ac2151373881c5ed06db9f007c7"
+        );
         assert!(artifact.record_key().starts_with("geometry:chunk:"));
         assert!(decoded.7.triangle_count() > 0);
     }
