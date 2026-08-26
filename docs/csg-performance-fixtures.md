@@ -8,7 +8,7 @@ Run our current kernel:
 .\tools\run_csg_perf.ps1
 ```
 
-The script builds `vg_csg` in release mode and writes JSONL to
+The script builds `gamecult-geometry-csg` in release mode and writes JSONL to
 `experiments/generated/csg-perf-latest.jsonl`. Each record carries:
 
 - `kernel`
@@ -19,7 +19,7 @@ The script builds `vg_csg` in release mode and writes JSONL to
 - emitted triangle, fragment, and warning counts
 - demand-frontier `candidate_pairs` and `rejected_pairs`
 
-The `vg_csg` fixture measures:
+The CultGeometry CSG fixture measures:
 
 - `stable`: cached output after warmup
 - `dirty`: full rebuild through the current ordered assembler
@@ -47,7 +47,7 @@ still rebuild.
 The same wrapper can append reference timings:
 
 ```powershell
-$env:VIBEGEOMETRY_REFERENCE_CSG_PERF = "path\to\reference-perf.exe"
+$env:GAMECULT_GEOMETRY_CSG_REFERENCE_PERF = "path\to\reference-perf.exe"
 .\tools\run_csg_perf.ps1
 ```
 
@@ -94,7 +94,7 @@ inside/outside/aligned/reverse-aligned categories, crossing polygon splits, and
 logical routing tables. Use it as readable doctrine. Use the native bridge as
 the performance target.
 
-`vg_csg` now reports the first demand-frontier counters. These are not yet a
+CultGeometry CSG reports the first demand-frontier counters. These are not yet a
 new kernel path; they expose the ordered brush stream as affected source/operator
 pairs and rejected bounds pairs so future router/index work can prove it is
 refusing real work rather than merely rearranging it.

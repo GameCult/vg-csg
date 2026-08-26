@@ -5,7 +5,7 @@ use std::{
 };
 
 use bevy_math::{Quat, Vec3};
-use vg_csg::{DomeCapZSpec, LevelDsl, MaterialId, TriangleMesh};
+use gamecult_geometry_csg::{DomeCapZSpec, LevelDsl, MaterialId, TriangleMesh};
 
 const FLOOR: MaterialId = MaterialId(1);
 const WALL: MaterialId = MaterialId(2);

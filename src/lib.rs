@@ -1,4 +1,4 @@
-//! Lean constructive geometry tools for VibeGeometry.
+//! Constructive-solid-geometry tools for CultGeometry.
 //!
 //! This crate borrows RealtimeCSG's useful public shape: ordered brushes,
 //! operation types, dirtied generations, prefix checkpoints, and rebuildable

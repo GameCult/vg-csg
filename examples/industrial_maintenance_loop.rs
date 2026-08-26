@@ -5,7 +5,7 @@ use std::{
 };
 
 use bevy_math::Vec3;
-use vg_csg::{LevelDsl, MaterialId, TriangleMesh};
+use gamecult_geometry_csg::{LevelDsl, MaterialId, TriangleMesh};
 
 const DECK: MaterialId = MaterialId(21);
 const SHELL: MaterialId = MaterialId(22);

@@ -1,8 +1,11 @@
-# vg-csg
+# GameCult.Geometry.Csg
+
+The project is known as **CultGeometry CSG**. Its Rust package is
+`gamecult-geometry-csg`, exposed to Rust code as `gamecult_geometry_csg`.
 
 Lean constructive geometry tooling for Rust/Bevy-math scene blockouts.
 
-`vg-csg` is the extracted CSG kernel from VibeGeometry. It is not trying to be
+CultGeometry CSG is the extracted CSG kernel from VibeGeometry. It is not trying to be
 a full CAD kernel. It is a small, inspectable machine for agent-authored level
 and habitat geometry:
 
@@ -39,7 +42,7 @@ experiments/generated/
 
 ```rust
 use bevy_math::{Quat, Vec3};
-use vg_csg::{LevelDsl, MaterialId};
+use gamecult_geometry_csg::{LevelDsl, MaterialId};
 
 let mut level = LevelDsl::new();
 level.solid_box(

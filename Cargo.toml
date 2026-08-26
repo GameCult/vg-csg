@@ -1,10 +1,10 @@
 [package]
-name = "vg_csg"
+name = "gamecult-geometry-csg"
 version = "0.1.0"
 edition = "2024"
-description = "Lean Bevy-math constructive geometry assembler for VibeGeometry blockouts"
+description = "CultGeometry constructive-solid-geometry kernel"
 license = "MIT"
-repository = "https://github.com/GameCult/vg-csg"
+repository = "https://github.com/GameCult/GameCult.Geometry.Csg"
 readme = "README.md"
 
 [dependencies]

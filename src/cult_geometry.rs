@@ -535,8 +535,11 @@ mod tests {
     #[test]
     fn domain_document_emits_msgpack_payload_and_stable_key() {
         let spec = ragnarok_column_spec();
-        let document =
-            CultGeometryDomainDocument::from_spec(&spec, "vg-csg", "2026-05-29T00:00:00Z");
+        let document = CultGeometryDomainDocument::from_spec(
+            &spec,
+            "gamecult.geometry.csg",
+            "2026-05-29T00:00:00Z",
+        );
         let payload = document.to_msgpack().unwrap();
         let decoded = CultGeometryDomainDocument::from_msgpack(&payload).unwrap();
         assert_eq!(document.record_key(), decoded.record_key());

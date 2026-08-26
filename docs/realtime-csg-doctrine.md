@@ -27,7 +27,7 @@ CSG tree, and emits the pieces that remain visible. It does not treat the final
 mesh as the authority. The brush tree is the authority; the mesh is cache and
 evidence.
 
-The highest-value shift for `vg_csg` is therefore:
+The highest-value shift for CultGeometry CSG is therefore:
 
 ```text
 from: subtract cutter -> produce new convex fragments -> triangulate fragments
@@ -63,7 +63,7 @@ A brush should be authored and cached as a set of planes, not merely as a
 triangle soup. Brush mesh creation is the act of finding valid intersections
 between those planes and linking the resulting topology.
 
-Implication for `vg_csg`: add a `ConvexBrush` authored by planes, then derive
+Implication for CultGeometry CSG: add a `ConvexBrush` authored by planes, then derive
 polygons, half-edges, bounds, and render buffers from that. Boxes, cylinders,
 wedges, stairs, panels, and dome approximations should become constructors for
 plane sets where possible.
@@ -120,7 +120,7 @@ Top-level output policy:
 - overlapping coplanar surfaces are resolved by tree/order policy so duplicate
   faces do not z-fight
 
-Implication for `vg_csg`: material propagation should be natural if source
+Implication for CultGeometry CSG: material propagation should be natural if source
 polygons remain source polygons. Generated cut faces need explicit policy:
 inherit cutter material, source material, or a domain material such as "raw
 concrete cut." Do not leave that as accidental array order.
@@ -138,7 +138,7 @@ allow early-outs before cutting:
 The optimization post reports a major speedup from branch-specific bounds
 checks alone. This is not a garnish. Bounds are semantic gates.
 
-Implication for `vg_csg`: every brush, polygon batch, and branch needs cheap
+Implication for CultGeometry CSG: every brush, polygon batch, and branch needs cheap
 bounds. Later BVH, hashed grid, or sweep-and-prune should be measured against
 the built-in tree culling instead of assumed superior by vibes in a lab coat.
 
@@ -150,7 +150,7 @@ sampled many times. Dreams' prototype refined frustum cells, shortened object
 lists as cells split, then switched to per-pixel sorted lists that could truncate
 at the first solid hit.
 
-For `vg_csg`, that translates to consumer-shaped query frontiers:
+For CultGeometry CSG, that translates to consumer-shaped query frontiers:
 
 - dirty brush movement asks for affected brush pairs, not a world rebuild;
 - branch evaluation asks for left/right bounds gates before polygon tests;
@@ -242,7 +242,7 @@ Use procedural fields and meshes for:
 The level DSL should let these coexist. Boolean nodes cut space; procedural
 nodes grow matter and detail around that space.
 
-## Implementation Target For `vg_csg`
+## Implementation Target For CultGeometry CSG
 
 Near-term kernel shape:
 
@@ -269,7 +269,7 @@ Process brush:
   emit visible pieces into render mesh
 ```
 
-`vg_csg` now exposes the first version of that public tree surface:
+CultGeometry CSG exposes the first version of that public tree surface:
 
 - `CsgOperationType::{Additive, Subtractive, Intersecting}` with parity-tested
   ordinals matching the public API
@@ -285,7 +285,7 @@ backend grows into the category router.
 
 Algorithm migration steps:
 
-1. Add polygon categories and visible/reversed flags to `vg_csg`.
+1. Add polygon categories and visible/reversed flags to CultGeometry CSG.
 2. Add plane-set brush construction independent of `Aabb`.
 3. Add a topology arena with vertices, directed edges, polygons, and polygon
    plane/material ids.
@@ -303,7 +303,7 @@ Algorithm migration steps:
 
 ## Acceptance Tests To Add
 
-- Where `vg_csg` exposes the same behavior as public RealtimeCSG/demo APIs,
+- Where CultGeometry CSG exposes the same behavior as public RealtimeCSG/demo APIs,
   maintain exact observable parity fixtures. These should compare public
   behavior such as category vocabulary, brush plane/polygon counts, split
   counts, visible/reversed semantics, bounds early-outs, and mesh output

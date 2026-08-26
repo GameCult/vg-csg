@@ -1,6 +1,6 @@
 param(
     [string]$OutputPath = ".\experiments\generated\csg-perf-latest.jsonl",
-    [string]$ReferenceCommand = $env:VIBEGEOMETRY_REFERENCE_CSG_PERF,
+    [string]$ReferenceCommand = $env:GAMECULT_GEOMETRY_CSG_REFERENCE_PERF,
     [switch]$UseRealtimeCsgCpp
 )
 
@@ -15,17 +15,17 @@ Push-Location $root
 try {
     cargo build --release --example csg_perf_fixture | Out-Host
     if ($LASTEXITCODE -ne 0) {
-        throw "vg_csg perf fixture build failed with exit code $LASTEXITCODE"
+        throw "CultGeometry CSG perf fixture build failed with exit code $LASTEXITCODE"
     }
 
     $exe = Join-Path $root "target\release\examples\csg_perf_fixture.exe"
     if (!(Test-Path $exe)) {
-        throw "Missing vg_csg perf fixture executable: $exe"
+        throw "Missing CultGeometry CSG perf fixture executable: $exe"
     }
 
     & $exe | Set-Content -Path $resolvedOutput -Encoding utf8
     if ($LASTEXITCODE -ne 0) {
-        throw "vg_csg perf fixture failed with exit code $LASTEXITCODE"
+        throw "CultGeometry CSG perf fixture failed with exit code $LASTEXITCODE"
     }
 
     if ($UseRealtimeCsgCpp) {
@@ -44,7 +44,7 @@ try {
         $missing = @{
             kernel = "reference"
             status = "missing"
-            reason = "Set VIBEGEOMETRY_REFERENCE_CSG_PERF or pass -ReferenceCommand with an executable that emits the same JSONL scenario records."
+            reason = "Set GAMECULT_GEOMETRY_CSG_REFERENCE_PERF or pass -ReferenceCommand with an executable that emits the same JSONL scenario records."
         } | ConvertTo-Json -Compress
         Add-Content -Path $resolvedOutput -Value $missing -Encoding utf8
     }

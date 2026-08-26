@@ -4,7 +4,7 @@ use std::{
 };
 
 use bevy_math::{Quat, Vec3};
-use vg_csg::{
+use gamecult_geometry_csg::{
     Aabb, Assembler, BrushOp, DomainQuery, MaterialId, Primitive, lower_selected_cut_chunks,
     ragnarok_column_fixture, select_domain_cut,
 };
@@ -86,7 +86,11 @@ impl PerfMode {
         }
     }
 
-    fn build(self, assembler: &mut Assembler, iteration: usize) -> vg_csg::BuildOutput {
+    fn build(
+        self,
+        assembler: &mut Assembler,
+        iteration: usize,
+    ) -> gamecult_geometry_csg::BuildOutput {
         match self {
             Self::Stable => assembler.build(),
             Self::Dirty => {
@@ -168,7 +172,7 @@ fn run_case(case: PerfCase, mode: PerfMode) {
     let p95_ns = percentile_ns(&timings, 95);
 
     println!(
-        "{{\"kernel\":\"vg_csg\",\"mode\":\"{}\",\"scenario\":\"{}\",\"brushes\":{},\"iterations\":{},\"warmup_iterations\":{},\"mean_ns\":{},\"min_ns\":{},\"p50_ns\":{},\"p95_ns\":{},\"max_ns\":{},\"triangles\":{},\"fragments\":{},\"warnings\":{},\"candidate_pairs\":{},\"rejected_pairs\":{},\"reused_mesh\":{},\"used_checkpoint\":{},\"checkpoint_rebuild_from\":{},\"direct_dirty_rebuild\":{}}}",
+        "{{\"kernel\":\"gamecult_geometry_csg\",\"mode\":\"{}\",\"scenario\":\"{}\",\"brushes\":{},\"iterations\":{},\"warmup_iterations\":{},\"mean_ns\":{},\"min_ns\":{},\"p50_ns\":{},\"p95_ns\":{},\"max_ns\":{},\"triangles\":{},\"fragments\":{},\"warnings\":{},\"candidate_pairs\":{},\"rejected_pairs\":{},\"reused_mesh\":{},\"used_checkpoint\":{},\"checkpoint_rebuild_from\":{},\"direct_dirty_rebuild\":{}}}",
         mode.as_str(),
         case.name,
         case.brushes,
@@ -314,7 +318,7 @@ fn run_lod_case(name: &'static str, query: DomainQuery) {
     let p95_ns = percentile_ns(&timings, 95);
 
     println!(
-        "{{\"kernel\":\"vg_csg\",\"mode\":\"lod_query\",\"scenario\":\"{}\",\"selected_nodes\":{},\"emitted_claims\":{},\"brushes\":{},\"iterations\":{},\"warmup_iterations\":{},\"mean_ns\":{},\"min_ns\":{},\"p50_ns\":{},\"p95_ns\":{},\"max_ns\":{},\"triangles\":{},\"collider_triangles\":{},\"candidate_pairs\":{},\"rejected_pairs\":{}}}",
+        "{{\"kernel\":\"gamecult_geometry_csg\",\"mode\":\"lod_query\",\"scenario\":\"{}\",\"selected_nodes\":{},\"emitted_claims\":{},\"brushes\":{},\"iterations\":{},\"warmup_iterations\":{},\"mean_ns\":{},\"min_ns\":{},\"p50_ns\":{},\"p95_ns\":{},\"max_ns\":{},\"triangles\":{},\"collider_triangles\":{},\"candidate_pairs\":{},\"rejected_pairs\":{}}}",
         name,
         selected_nodes,
         emitted_claims,

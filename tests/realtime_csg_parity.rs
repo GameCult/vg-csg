@@ -1,5 +1,5 @@
 use bevy_math::{Quat, Vec3};
-use vg_csg::{
+use gamecult_geometry_csg::{
     Aabb, Assembler, ConvexSolid, CsgBranchOp, CsgOperationType, CsgTreeArena, MaterialId,
     PolygonCategory, Primitive,
 };

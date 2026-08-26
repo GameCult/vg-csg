@@ -1,5 +1,5 @@
 use bevy_math::Vec3;
-use vg_csg::{DomeCapZSpec, FloretArmSpec, LevelDsl, MaterialId};
+use gamecult_geometry_csg::{DomeCapZSpec, FloretArmSpec, LevelDsl, MaterialId};
 
 fn main() {
     let mut level = LevelDsl::new();

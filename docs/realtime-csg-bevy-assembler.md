@@ -41,14 +41,14 @@ to Bevy render assets.
 
 ## Current Port Shape
 
-`vg-csg` is the first lean Rust organ.
+CultGeometry CSG is the lean Rust CSG organ.
 
 It uses `bevy_math` for `Vec3`, `Vec2`, and Bevy-compatible spatial types while
 keeping output as simple arrays:
 
 ```rust
 use bevy_math::Vec3;
-use vg_csg::{LevelDsl, MaterialId};
+use gamecult_geometry_csg::{LevelDsl, MaterialId};
 
 let mut level = LevelDsl::new();
 level.solid_box(
@@ -109,7 +109,7 @@ level script can mix hard architectural cuts with habitat-specific forms:
 ```rust
 level.dome_cap_z(
     "city dome",
-    vg_csg::DomeCapZSpec {
+    gamecult_geometry_csg::DomeCapZSpec {
         center: Vec3::ZERO,
         radius: 20.0,
         height: 8.0,
@@ -120,7 +120,7 @@ level.dome_cap_z(
 );
 level.floret_arm(
     "radiator petal",
-    vg_csg::FloretArmSpec {
+    gamecult_geometry_csg::FloretArmSpec {
         anchor: Vec3::new(20.0, 0.0, 0.2),
         direction: Vec3::X,
         length: 120.0,
@@ -188,7 +188,7 @@ slot for a public-demo/reference harness when one is available.
 
 ## Limits
 
-`vg_csg` is not yet a full RealtimeCSG replacement.
+CultGeometry CSG is not yet a full RealtimeCSG replacement.
 
 - subtractive convex support currently covers axis-aligned and oriented boxes
 - non-box subtractors are reported and ignored

@@ -4,7 +4,7 @@ use std::{
 };
 
 use bevy_math::Vec3;
-use vg_csg::{
+use gamecult_geometry_csg::{
     Aabb, CultGeometryBuildRequest, CultGeometryChunkArtifact, CultGeometryDomainDocument,
     CultGeometrySelectedCutManifest, DomainQuery, GEOMETRY_BUILD_REQUEST_SCHEMA,
     GEOMETRY_CHUNK_ARTIFACT_SCHEMA, GEOMETRY_DOMAIN_SCHEMA, GEOMETRY_SELECTED_CUT_SCHEMA,
@@ -21,8 +21,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let spec = ragnarok_column_spec();
     let root = spec.compile_root();
     let query = high_lod_query();
-    let domain =
-        CultGeometryDomainDocument::from_spec(&spec, "vg-csg", "2026-05-29T00:00:00.0000000Z");
+    let domain = CultGeometryDomainDocument::from_spec(
+        &spec,
+        "gamecult.geometry.csg",
+        "2026-05-29T00:00:00.0000000Z",
+    );
     let domain_key = domain.record_key();
     let request = CultGeometryBuildRequest::from_query(
         "ragnarok-column-high",
